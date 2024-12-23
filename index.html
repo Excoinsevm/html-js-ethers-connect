@@ -1,13 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Javascript Test</title>
+    <title>Token Deployment</title>
   </head>
 
   <body>
+    <h1>Token Deployment DApp</h1>
     <button id="connectButton" onclick="bundle.connect()">Connect</button>
-    <button id="executeButton" onclick="bundle.execute()">Execute</button>
-  </body>
+    <br><br>
 
-  <script src="./dist/bundle.js" type="text/javascript"></script>
+    <h2>Deploy Token</h2>
+    <form id="deployForm">
+      <label for="tokenName">Token Name:</label>
+      <input type="text" id="tokenName" name="tokenName" required />
+      <br><br>
+
+      <label for="tokenSymbol">Token Symbol:</label>
+      <input type="text" id="tokenSymbol" name="tokenSymbol" required />
+      <br><br>
+
+      <label for="totalSupply">Total Supply (e.g., 1,000,000):</label>
+      <input type="number" id="totalSupply" name="totalSupply" required />
+      <br><br>
+
+      <label for="buyLiquidityFee">Buy Liquidity Fee (%):</label>
+      <input type="number" id="buyLiquidityFee" name="buyLiquidityFee" required />
+      <br><br>
+
+      <label for="buyMarketingFee">Buy Marketing Fee (%):</label>
+      <input type="number" id="buyMarketingFee" name="buyMarketingFee" required />
+      <br><br>
+
+      <label for="sellLiquidityFee">Sell Liquidity Fee (%):</label>
+      <input type="number" id="sellLiquidityFee" name="sellLiquidityFee" required />
+      <br><br>
+
+      <label for="sellMarketingFee">Sell Marketing Fee (%):</label>
+      <input type="number" id="sellMarketingFee" name="sellMarketingFee" required />
+      <br><br>
+
+      <label for="maxTxPercent">Max Transaction Percent (%):</label>
+      <input type="number" id="maxTxPercent" name="maxTxPercent" required />
+      <br><br>
+
+      <label for="maxWalletPercent">Max Wallet Percent (%):</label>
+      <input type="number" id="maxWalletPercent" name="maxWalletPercent" required />
+      <br><br>
+
+      <label for="marketingAddress">Marketing Wallet Address:</label>
+      <input type="text" id="marketingAddress" name="marketingAddress" required />
+      <br><br>
+
+      <button type="button" onclick="deployToken()">Deploy Token</button>
+    </form>
+
+    <script src="./dist/bundle.js" type="text/javascript"></script>
+    <script>
+      async function deployToken() {
+        const form = document.getElementById("deployForm");
+        const formData = new FormData(form);
+
+        const tokenName = formData.get("tokenName");
+        const tokenSymbol = formData.get("tokenSymbol");
+        const totalSupply = formData.get("totalSupply");
+        const buyLiquidityFee = formData.get("buyLiquidityFee");
+        const buyMarketingFee = formData.get("buyMarketingFee");
+        const sellLiquidityFee = formData.get("sellLiquidityFee");
+        const sellMarketingFee = formData.get("sellMarketingFee");
+        const maxTxPercent = formData.get("maxTxPercent");
+        const maxWalletPercent = formData.get("maxWalletPercent");
+        const marketingAddress = formData.get("marketingAddress");
+
+        // Call deployToken in your JavaScript bundle
+        try {
+          await bundle.deployToken(
+            parseInt(buyLiquidityFee),
+            parseInt(buyMarketingFee),
+            parseInt(sellLiquidityFee),
+            parseInt(sellMarketingFee),
+            parseInt(maxTxPercent),
+            parseInt(maxWalletPercent),
+            ethers.utils.parseUnits(totalSupply, 18), // Adjust for 18 decimals
+            tokenName,
+            tokenSymbol,
+            marketingAddress
+          );
+          alert("Token deployed successfully!");
+        } catch (error) {
+          console.error("Error deploying token:", error);
+          alert("Failed to deploy token. Check the console for details.");
+        }
+      }
+    </script>
+  </body>
 </html>
