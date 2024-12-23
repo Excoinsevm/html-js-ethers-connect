@@ -19,27 +19,205 @@ async function deployToken() {
   if (typeof window.ethereum !== "undefined") {
     const contractAddress = "0xd5b5A55826Bb31d2404c1A39E310083e72eEE3F8"; // Replace with actual TokensFactory contract address
     const abi = [
-      {
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
         "inputs": [
-          { "internalType": "uint256", "name": "userinput_buy_liquidity_fee", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_buy_marketing_fee", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_sell_liquidity_fee", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_sell_marketing_fee", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_max_tx_percent", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_max_wallet_percent", "type": "uint256" },
-          { "internalType": "uint256", "name": "userinput_totalsupply", "type": "uint256" },
-          { "internalType": "string", "name": "userinput_token_name", "type": "string" },
-          { "internalType": "string", "name": "userinput_token_symbol", "type": "string" },
-          { "internalType": "address", "name": "userinput_marketingaddress", "type": "address" }
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "deployer",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "tokenAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "tokenName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "tokenSymbol",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalSupply",
+                "type": "uint256"
+            }
+        ],
+        "name": "TokenDeployed",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getDeploymentCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "tokenAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "recoverERC20",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "recoverNative",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "userinput_buy_liquidity_fee",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_buy_marketing_fee",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_sell_liquidity_fee",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_sell_marketing_fee",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_max_tx_percent",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_max_wallet_percent",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "userinput_totalsupply",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "userinput_token_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userinput_token_symbol",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "userinput_marketingaddress",
+                "type": "address"
+            }
         ],
         "name": "deployToken",
         "outputs": [
-          { "internalType": "address", "name": "tokenAddress", "type": "address" }
+            {
+                "internalType": "address",
+                "name": "tokenAddress",
+                "type": "address"
+            }
         ],
         "stateMutability": "nonpayable",
         "type": "function"
-      }
-    ];
+    },
+    {
+        "inputs": [],
+        "name": "getAllDeployments",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "creators",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "tokens",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferFactoryOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+];
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
