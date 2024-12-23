@@ -17,7 +17,7 @@ async function connect() {
 
 async function deployToken() {
   if (typeof window.ethereum !== "undefined") {
-    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with actual TokensFactory contract address
+    const contractAddress = "0xd5b5A55826Bb31d2404c1A39E310083e72eEE3F8"; // Replace with actual TokensFactory contract address
     const abi = [
       {
         "inputs": [
